@@ -1,0 +1,14 @@
+---
+common_packages:
+  - curl
+  - wget
+  - git
+  - vim
+  - htop
+  - unzip
+  - ca-certificates
+  - gnupg
+  - python3
+  - python3-pip
+
+common_timezone: Europe/Paris

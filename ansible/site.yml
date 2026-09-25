@@ -1,0 +1,50 @@
+---
+- name: Configure Docker hosts
+  hosts: docker_hosts
+  become: true
+  gather_facts: true
+
+  roles:
+    - common
+    - docker
+
+- name: Install k3s server
+  hosts: k3s_server
+  become: true
+  gather_facts: true
+
+  roles:
+    - common
+    - k3s_server
+
+- name: Join k3s agent to cluster
+  hosts: k3s_agent
+  become: true
+  gather_facts: true
+
+  vars:
+    k3s_url: "https://{{ hostvars[groups['k3s_server'][0]]['ansible_host'] }}:6443"
+    k3s_token: "{{ hostvars[groups['k3s_server'][0]]['k3s_server_node_token']['content'] | b64decode | trim }}"
+
+  roles:
+    - common
+    - k3s_agent
+
+- name: Verify k3s cluster
+  hosts: k3s_server
+  become: true
+  gather_facts: false
+
+  tasks:
+
+    - name: Wait for all nodes to be ready
+      ansible.builtin.command: k3s kubectl get nodes
+      register: k3s_cluster_nodes
+      until: k3s_cluster_nodes.rc == 0 and 'NotReady' not in k3s_cluster_nodes.stdout
+      retries: 15
+      delay: 5
+      changed_when: false
+
+    - name: Display cluster nodes
+      ansible.builtin.debug:
+        var: k3s_cluster_nodes.stdout

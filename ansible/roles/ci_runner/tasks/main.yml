@@ -1,0 +1,49 @@
+---
+- name: Install runner dependencies
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - jq
+      - unzip
+    state: present
+    update_cache: true
+
+- name: Create runner account
+  ansible.builtin.user:
+    name: runner
+    comment: GitHub Actions Runner
+    shell: /bin/bash
+    groups:
+      - docker
+    append: true
+    create_home: true
+
+- name: Create runner directory
+  ansible.builtin.file:
+    path: /opt/actions-runner
+    state: directory
+    owner: runner
+    group: runner
+    mode: "0755"
+
+- name: Check if the runner is already installed
+  ansible.builtin.stat:
+    path: /opt/actions-runner/run.sh
+  register: ci_runner_binary
+
+- name: Download the GitHub Actions runner
+  ansible.builtin.get_url:
+    url: https://github.com/actions/runner/releases/download/v2.328.0/actions-runner-linux-x64-2.328.0.tar.gz
+    dest: /tmp/actions-runner.tar.gz
+    mode: "0644"
+  when: not ci_runner_binary.stat.exists
+
+- name: Extract the GitHub Actions runner
+  ansible.builtin.unarchive:
+    src: /tmp/actions-runner.tar.gz
+    dest: /opt/actions-runner
+    remote_src: true
+    owner: runner
+    group: runner
+  when: not ci_runner_binary.stat.exists
