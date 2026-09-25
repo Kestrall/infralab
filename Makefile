@@ -7,7 +7,7 @@ TF_DIR=terraform/environments/home
 PROXMOX_HOST=proxmox
 REMOTE_DIR=/root/infralab
 
-ENV_FILE=env/env.sh
+ENV_FILE=env/home.env
 
 ################################################################################
 
