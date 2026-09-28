@@ -1,14 +1,14 @@
 # InfraLab
 
 <p align="center">
-  <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/ThomaMart/infralab/ci.yml?branch=main&amp;style=for-the-badge&amp;label=CI">
+  <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Kestrall/infralab/ci.yml?branch=main&amp;style=for-the-badge&amp;label=CI">
   <img alt="Terraform" src="https://img.shields.io/badge/Terraform-1.15+-623CE4?style=for-the-badge&amp;logo=terraform">
   <img alt="Proxmox" src="https://img.shields.io/badge/Proxmox-VE-E57000?style=for-the-badge&amp;logo=proxmox">
   <img alt="Debian" src="https://img.shields.io/badge/Debian-13-A81D33?style=for-the-badge&amp;logo=debian">
   <img alt="Docker" src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&amp;logo=docker">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&amp;logo=python">
   <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-Ready-009688?style=for-the-badge&amp;logo=fastapi">
-  <img alt="License" src="https://img.shields.io/github/license/ThomaMart/infralab?style=for-the-badge">
+  <img alt="License" src="https://img.shields.io/github/license/Kestrall/infralab?style=for-the-badge">
 </p>
 
 InfraLab is an open-source Infrastructure as Code framework built around Proxmox Virtual Environment.
@@ -122,7 +122,7 @@ terraform/
 Clone the repository.
 
 ```bash
-git clone https://github.com/ThomaMart/infralab.git
+git clone https://github.com/Kestrall/infralab.git
 
 cd infralab
 ```
